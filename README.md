@@ -1,33 +1,36 @@
 # Shady Adel — Portfolio
 
-Personal site: **https://shadyadel90.github.io/**
+Live site: **https://shadyadel90.github.io/**
 
-Two switchable profiles: **iOS Engineer** and **AI Product Engineer**.
-Dark, minimal, project-focused. Built with React + Vite + Tailwind.
+One repo. Two profiles (iOS / AI Product Engineer).
 
-This is the **only** repo — it deploys to your user GitHub Pages site.
-
-## Updating the site
+## Updating
 
 ```
-src/data/portfolio.ts                          ← both profiles + shared contact
-public/Shady-Adel-iOS-CV.pdf                   ← iOS tab Download CV
-public/Shady-Adel-AI-Product-Engineer-CV.pdf   ← AI tab Download CV
-public/screenshots/                            ← project screenshots
+src/data/portfolio.ts
+public/Shady-Adel-iOS-CV.pdf
+public/Shady-Adel-AI-Product-Engineer-CV.pdf
+public/screenshots/
 ```
 
-1. **CV changed?** Replace the matching PDF in `public/` (keep the filename).
-2. **New project / new job?** Edit `src/data/portfolio.ts`. Empty `""` / `[]` fields are hidden.
-3. **Push to GitHub.** Actions builds and deploys automatically.
+Then:
 
-## First-time GitHub Pages setup
+```bash
+npm run build:pages
+git add -A && git commit -m "Update portfolio" && git push
+```
 
-**Settings → Pages → Source: GitHub Actions**
+## GitHub Pages setup (do this once)
 
-## Local development
+1. Open **Settings → Pages**
+2. **Source:** Deploy from a branch
+3. **Branch:** `main`
+4. **Folder:** `/docs`  ← not `/(root)`
+5. Save
+
+## Local
 
 ```bash
 npm install
 npm run dev
-npm run build
 ```
