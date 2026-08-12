@@ -230,7 +230,7 @@ export const profiles: Record<RoleId, Profile> = {
     hero: {
       name: "Shady Adel",
       headline: "iOS Software Engineer",
-      sub: "2.5+ years shipping and maintaining production iOS apps with Swift, SwiftUI, and UIKit — focused on architecture, performance, and AI-assisted engineering.",
+      sub: "3+ years shipping and maintaining production iOS apps with Swift, SwiftUI, and UIKit — focused on architecture, performance, and AI-assisted engineering.",
     },
     engineeringIntro:
       "Production applications, engineering improvements, and AI-assisted development from my work at Innovitics.",
@@ -337,7 +337,7 @@ export const profiles: Record<RoleId, Profile> = {
     hero: {
       name: "Shady Adel",
       headline: "AI Product Engineer",
-      sub: "2.5+ years building production software and AI-assisted engineering workflows — focused on architecture, performance, and shipping customer-facing products.",
+      sub: "3+ years building production software and AI-assisted engineering workflows — focused on architecture, performance, and shipping customer-facing products.",
     },
     engineeringIntro:
       "Production applications, engineering improvements, and AI-assisted development from my work at Innovitics.",
