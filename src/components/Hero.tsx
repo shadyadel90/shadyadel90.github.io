@@ -43,10 +43,10 @@ export function Hero() {
       <Reveal delay={280}>
         <div className="mt-10 flex flex-wrap items-center gap-3">
           <a
-            href="#work"
+            href="#experience"
             className="rounded-md bg-text px-6 py-3 text-sm font-medium text-bg transition-opacity hover:opacity-85"
           >
-            Engineering work
+            Experience
           </a>
           <a
             href={asset(profile.cvFile)}

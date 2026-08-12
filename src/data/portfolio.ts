@@ -6,10 +6,12 @@
 
    Common tasks:
    • Switch-tab copy     → edit the profile under `profiles`.
-   • New engineering work → add an entry to that profile's `engineeringWork` array
-                           (top of the array = first).
-   • Visual panels       → set `visual` to metrics | workflow | apps | none
-                           (or omit / use screenshots when you have images).
+   • Production apps     → edit that profile's `productionApps` array
+                           (order = display order).
+   • Engineering areas   → edit that profile's `engineeringWork` array
+                           (Architecture, AI, etc.).
+   • Visual panels       → set `visual` to metrics | workflow | none
+                           (or omit when not needed).
    • New CV              → replace the matching PDF in public/ (keep the
                            filename, or update `cvFile` on that profile).
 
@@ -28,30 +30,35 @@ export type EngineeringVisual =
       steps: string[];
       metric?: { value: string; label: string };
     }
-  | {
-      type: "apps";
-      items: { name: string; detail?: string }[];
-    }
-  | {
-      type: "screenshots";
-      images: string[];
-    }
   | { type: "none" };
+
+export interface ProductionApp {
+  name: string;
+  /** Small badge, e.g. "Production iOS App". Leave "" to hide. */
+  label: string;
+  /** One short note under the name. Leave "" to hide. */
+  note: string;
+  /** Path under public/, e.g. "screenshots/apps/icon.webp". */
+  icon: string;
+  /** Up to 2 screenshot paths under public/. */
+  screenshots: string[];
+  appStoreUrl: string;
+}
 
 export interface EngineeringWork {
   name: string;
-  /** Small badge, e.g. "Professional Work". */
+  /** Small badge, e.g. "Engineering Improvements". Leave "" to hide. */
   type: string;
-  /** Organization / context line, e.g. "Innovitics". Leave "" to hide. */
+  /** Organization / context line. Leave "" to hide. */
   organization: string;
   /** e.g. "Dec 2024 — Present". Leave "" to hide. */
   timeframe: string;
   /** Short framing sentence. Leave "" to hide. */
   description: string;
-  /** Technical highlights — rendered as bullets. */
+  /** Technical highlights — rendered as bullets. Keep short. */
   contribution: string[];
   technologies: string[];
-  /** Optional side visual. Omit or use type "none" for text-only. */
+  /** Optional side / below visual. Omit or use type "none" for text-only. */
   visual?: EngineeringVisual;
   /** Leave "" to hide a link. */
   appStoreUrl: string;
@@ -93,6 +100,8 @@ export interface Profile {
     sub: string;
   };
   engineeringIntro: string;
+  productionAppsIntro: string;
+  productionApps: ProductionApp[];
   engineeringWork: EngineeringWork[];
   experience: ExperienceEntry[];
   skills: SkillGroup[];
@@ -115,7 +124,7 @@ export const site = {
   phone: "(+20) 114 172 9045",
   phoneHref: "tel:+201141729045",
   linkedinUrl: "https://www.linkedin.com/in/shadyadel9",
-  githubUrl: "", // add your GitHub profile URL to show it in nav/contact
+  githubUrl: "https://github.com/shadyadel90",
 };
 
 /** Tabs shown in the role switcher — order = left → right. */
@@ -125,6 +134,90 @@ export const roleOptions: RoleOption[] = [
 ];
 
 export const defaultRole: RoleId = "ios";
+
+const productionApps: ProductionApp[] = [
+  {
+    name: "Mahmoud ElFar Market",
+    label: "Production iOS App",
+    note: "Built and maintained at Innovitics.",
+    icon: "screenshots/apps/mahmoud-elfar-icon.webp",
+    screenshots: [
+      "screenshots/apps/mahmoud-elfar-1.webp",
+      "screenshots/apps/mahmoud-elfar-2.webp",
+      "screenshots/apps/mahmoud-elfar-3.webp",
+    ],
+    appStoreUrl:
+      "https://apps.apple.com/eg/app/mahmoud-elfar-market/id1604071032",
+  },
+  {
+    name: "TAQA Volt",
+    label: "Production iOS App",
+    note: "Built and maintained at Innovitics.",
+    icon: "screenshots/apps/taqa-volt-icon.webp",
+    screenshots: [
+      "screenshots/apps/taqa-volt-1.webp",
+      "screenshots/apps/taqa-volt-2.webp",
+      "screenshots/apps/taqa-volt-3.webp",
+    ],
+    appStoreUrl: "https://apps.apple.com/eg/app/taqa-volt/id6478912475",
+  },
+];
+
+const architectureWork: EngineeringWork = {
+  name: "Architecture & Performance",
+  type: "",
+  organization: "Innovitics",
+  timeframe: "",
+  description:
+    "Improving architecture, startup performance, and network efficiency in production codebases.",
+  contribution: [
+    "Refactored legacy code toward a more modular architecture.",
+  ],
+  technologies: [],
+  visual: {
+    type: "metrics",
+    items: [
+      { value: "~10%", label: "Smaller codebase" },
+      { value: "~800 ms", label: "Launch-time improvement" },
+      { value: "Up to 80%", label: "Lower network/server usage" },
+    ],
+  },
+  appStoreUrl: "",
+  githubUrl: "",
+  websiteUrl: "",
+};
+
+const aiWork: EngineeringWork = {
+  name: "AI-Assisted Engineering",
+  type: "",
+  organization: "",
+  timeframe: "",
+  description:
+    "Designing a multi-model AI development workflow around modern engineering tools.",
+  contribution: [
+    "Route engineering tasks across models based on capability, context, and cost.",
+    "Reduced AI operating costs by up to 80% through more efficient model usage.",
+  ],
+  technologies: [
+    "Claude",
+    "Codex",
+    "Cursor",
+    "Gemini",
+    "MCP",
+    "Agentic Workflows",
+  ],
+  visual: {
+    type: "workflow",
+    steps: ["Claude", "Opus", "Codex"],
+    metric: {
+      value: "Up to 80%",
+      label: "Lower AI cost",
+    },
+  },
+  appStoreUrl: "",
+  githubUrl: "",
+  websiteUrl: "",
+};
 
 /* -------------------------------------------------------------- profiles -- */
 
@@ -137,96 +230,14 @@ export const profiles: Record<RoleId, Profile> = {
     hero: {
       name: "Shady Adel",
       headline: "iOS Software Engineer",
-      sub: "I build, optimize, and ship production iOS apps — Swift, SwiftUI, and UIKit. 2.5+ years specializing in performance, modular architecture, and AI-assisted delivery.",
+      sub: "2.5+ years shipping and maintaining production iOS apps with Swift, SwiftUI, and UIKit — focused on architecture, performance, and AI-assisted engineering.",
     },
     engineeringIntro:
-      "Production software, architecture improvements, performance work, and AI-assisted engineering from my work at Innovitics.",
-    engineeringWork: [
-      {
-        name: "Production iOS Engineering",
-        type: "Professional Work",
-        organization: "Innovitics",
-        timeframe: "Dec 2024 — Present",
-        description:
-          "Developing and maintaining customer-facing iOS applications in production, including TAQA EV and Mahmoud ElFar.",
-        contribution: [
-          "Developed and managed 3+ production iOS applications from feature development through deployment and ongoing maintenance.",
-          "Built and maintained customer-facing features using Swift, SwiftUI, UIKit, and Combine.",
-          "Worked across existing and legacy production codebases, resolving bugs, improving maintainability, and shipping new functionality.",
-          "Collaborated with Product, Design, Android, Web, and QA teams throughout development and release cycles.",
-        ],
-        technologies: ["Swift", "SwiftUI", "UIKit", "Combine", "MVVM-C"],
-        visual: {
-          type: "apps",
-          items: [
-            { name: "TAQA EV", detail: "Production app" },
-            { name: "Mahmoud ElFar", detail: "Production app" },
-          ],
-        },
-        appStoreUrl: "",
-        githubUrl: "",
-        websiteUrl: "",
-      },
-      {
-        name: "Architecture & Performance",
-        type: "Engineering Improvements",
-        organization: "Innovitics",
-        timeframe: "",
-        description:
-          "Improving production codebases beyond feature delivery — architecture, startup performance, maintainability, and network efficiency.",
-        contribution: [
-          "Refactored a legacy codebase into a modular architecture, reducing overall codebase size by approximately 10%.",
-          "Improved app launch time by approximately 800 ms.",
-          "Reduced network and server usage by up to 80% across several features.",
-          "Applied MVVM-C, SOLID principles, concurrency, and testing practices while evolving existing production code.",
-        ],
-        technologies: ["MVVM-C", "SOLID", "Concurrency", "Unit Testing"],
-        visual: {
-          type: "metrics",
-          items: [
-            { value: "~10%", label: "Smaller codebase" },
-            { value: "~800 ms", label: "Launch-time improvement" },
-            { value: "Up to 80%", label: "Lower network/server usage" },
-          ],
-        },
-        appStoreUrl: "",
-        githubUrl: "",
-        websiteUrl: "",
-      },
-      {
-        name: "AI-Assisted Engineering",
-        type: "Developer Productivity",
-        organization: "AI Workflows",
-        timeframe: "",
-        description:
-          "Building a multi-model AI-assisted development workflow to improve engineering speed, capability, and cost efficiency.",
-        contribution: [
-          "Designed and integrated a multi-model development workflow using Claude, Opus, and Codex.",
-          "Used different models for different engineering tasks based on capability, context, and cost.",
-          "Reduced AI operating costs by up to 80% through more efficient model usage and workflow design.",
-          "Extended the workflow with tools such as Cursor and Gemini while exploring MCP and agentic development systems.",
-        ],
-        technologies: [
-          "Claude",
-          "Codex",
-          "Cursor",
-          "Gemini",
-          "MCP",
-          "Agentic Workflows",
-        ],
-        visual: {
-          type: "workflow",
-          steps: ["Claude", "Opus", "Codex"],
-          metric: {
-            value: "Up to 80%",
-            label: "Lower AI cost",
-          },
-        },
-        appStoreUrl: "",
-        githubUrl: "",
-        websiteUrl: "",
-      },
-    ],
+      "Production applications, engineering improvements, and AI-assisted development from my work at Innovitics.",
+    productionAppsIntro:
+      "Production iOS applications I develop and maintain at Innovitics.",
+    productionApps,
+    engineeringWork: [architectureWork, aiWork],
     experience: [
       {
         role: "iOS Developer",
@@ -235,10 +246,10 @@ export const profiles: Record<RoleId, Profile> = {
         period: "Dec 2024 — Present",
         type: "Professional",
         highlights: [
-          "Own feature delivery and maintenance for customer-facing iOS apps in production.",
-          "Drive architecture and performance improvements across existing codebases.",
-          "Partner with Product, Design, Android, Web, and QA through development and release cycles.",
-          "Apply AI-assisted workflows to ship faster while keeping operating costs under control.",
+          "Develop and maintain 3+ production iOS applications.",
+          "Improved architecture and performance across production codebases.",
+          "Reduced network/server usage by up to 80%.",
+          "Integrated a multi-model AI-assisted engineering workflow.",
         ],
       },
       {
@@ -248,10 +259,9 @@ export const profiles: Record<RoleId, Profile> = {
         period: "Nov 2024 — Present",
         type: "Community",
         highlights: [
-          "Collaborated with the community founders in expanding local chapters across 5+ cities, growing the community to 500+ unique active members.",
-          "Contributed to 50+ workshops, meetups, and mentoring sessions, supporting kids, students, and professionals across all experience levels.",
-          "Worked directly with social media outreach, helping community initiatives reach 250k+ online views.",
-          "Maintained a safe and respectful community environment where members felt comfortable sharing experiences and growing together.",
+          "Helped grow the community to 500+ active members across 5+ cities.",
+          "Contributed to 50+ workshops, meetups, and mentoring sessions.",
+          "Supported initiatives reaching 250k+ online views.",
         ],
       },
       {
@@ -261,11 +271,9 @@ export const profiles: Record<RoleId, Profile> = {
         period: "Nov 2019 — Apr 2022",
         type: "Military service",
         highlights: [
-          "Led a unit of ~40 personnel, ensuring performance under high-pressure conditions.",
-          "Planned and executed missions with strict timelines, improving execution efficiency and minimizing risk.",
-          "Enforced standards that resulted in consistent team reliability and performance.",
-          "Coordinated cross-functional activities across logistics and operations.",
-          "Mentored and trained team members, improving overall unit capability.",
+          "Led approximately 40 personnel under high-pressure conditions.",
+          "Coordinated operations, logistics, timelines, and team execution.",
+          "Mentored and trained team members.",
         ],
       },
     ],
@@ -279,28 +287,27 @@ export const profiles: Record<RoleId, Profile> = {
         items: ["MVVM-C", "VIPER", "SOLID", "Concurrency"],
       },
       {
-        category: "Quality & Testing",
-        items: ["Unit Testing", "UI Testing"],
+        category: "Quality & Delivery",
+        items: ["Unit Testing", "UI Testing", "Git", "CI/CD"],
       },
       {
-        category: "AI-Assisted Development",
-        items: ["Claude", "Codex", "Gemini", "Cursor"],
-      },
-      {
-        category: "Workflow & Delivery",
-        items: ["Git", "CI/CD", "Scrum", "Agile", "Jira"],
-      },
-      {
-        category: "Ecosystem",
-        items: ["3rd-Party Libraries", "Open Source"],
+        category: "AI-Assisted Engineering",
+        items: [
+          "Claude",
+          "Codex",
+          "Cursor",
+          "Gemini",
+          "AI-Assisted Development",
+          "Prompt Engineering",
+          "MCP",
+          "Agentic Workflows",
+        ],
       },
     ],
     about: {
       paragraphs: [
-        "I'm Shady — a software engineer specializing in iOS, working with Swift, SwiftUI, and UIKit. Over the last 2.5+ years I've developed and maintained production apps end to end: architecture, refactoring, performance, deployment, and ongoing support.",
-        "At Innovitics I refactored a legacy codebase into a modular architecture (~10% smaller), cut app launch time by ~800 ms, lowered network and server usage by up to ~80%, and designed a multi-model AI-assisted engineering workflow — Claude, Opus, and Codex — that reduced costs by up to ~80%.",
-        "Outside of work I'm a community manager at Mashrou' siin, a tech community I've helped grow to 500+ active members across 5+ cities — contributing to 50+ workshops, meetups, and mentoring sessions.",
-        "Before software, I served three years as a first lieutenant in the Egyptian Armed Forces, leading a unit of ~40 personnel — where I learned to deliver under pressure and on strict timelines.",
+        "I'm Shady — a software engineer specializing in iOS. I own production apps through architecture, performance, shipping, and ongoing maintenance.",
+        "Outside of work I help run Mashrou' siin, a tech community across Egypt. Before software, I served three years as a first lieutenant in the Egyptian Armed Forces, leading a unit of ~40 personnel.",
       ],
       facts: [
         { label: "Location", value: "Egypt" },
@@ -308,7 +315,6 @@ export const profiles: Record<RoleId, Profile> = {
           label: "Education",
           value: "BSc Computer Science, Kafr El-Shiekh University (2015 — 2019)",
         },
-        { label: "Graduation project", value: "E-commerce platform — graded A+" },
         {
           label: "Service",
           value: "First Lieutenant, Egyptian Armed Forces (2019 — 2022)",
@@ -317,9 +323,9 @@ export const profiles: Record<RoleId, Profile> = {
       ],
     },
     contact: {
-      heading: "Let's build something.",
+      heading: "Let's talk.",
       blurb:
-        "Happy to talk about iOS, shipped products, or the next thing worth building. Fastest way to reach me:",
+        "Open to discussing iOS engineering, production software, and AI-assisted development opportunities.",
     },
   },
 
@@ -331,96 +337,14 @@ export const profiles: Record<RoleId, Profile> = {
     hero: {
       name: "Shady Adel",
       headline: "AI Product Engineer",
-      sub: "Software engineer with 2.5+ years building production software and AI-powered features — scalable architectures, performance, AI workflows, and customer-facing products. Focused on AI-native products, modern developer tools, and end-to-end systems with AI-assisted development.",
+      sub: "2.5+ years building production software and AI-assisted engineering workflows — focused on architecture, performance, and shipping customer-facing products.",
     },
     engineeringIntro:
-      "Production software, architecture improvements, performance work, and AI-assisted engineering from my work at Innovitics.",
-    engineeringWork: [
-      {
-        name: "Production Engineering",
-        type: "Professional Work",
-        organization: "Innovitics",
-        timeframe: "Dec 2024 — Present",
-        description:
-          "Developing and maintaining customer-facing applications in production, including TAQA EV and Mahmoud ElFar.",
-        contribution: [
-          "Developed and managed 3+ production applications from feature development through deployment and ongoing maintenance.",
-          "Built and maintained customer-facing features across existing and legacy production codebases.",
-          "Resolved bugs, improved maintainability, and shipped new functionality in live products.",
-          "Collaborated with Product, Design, Android, Web, and QA teams throughout development and release cycles.",
-        ],
-        technologies: ["Swift", "SwiftUI", "UIKit", "Combine", "MVVM-C"],
-        visual: {
-          type: "apps",
-          items: [
-            { name: "TAQA EV", detail: "Production app" },
-            { name: "Mahmoud ElFar", detail: "Production app" },
-          ],
-        },
-        appStoreUrl: "",
-        githubUrl: "",
-        websiteUrl: "",
-      },
-      {
-        name: "Architecture & Performance",
-        type: "Engineering Improvements",
-        organization: "Innovitics",
-        timeframe: "",
-        description:
-          "Improving production codebases beyond feature delivery — architecture, startup performance, maintainability, and network efficiency.",
-        contribution: [
-          "Refactored a legacy codebase into a modular architecture, reducing overall codebase size by approximately 10%.",
-          "Improved app launch time by approximately 800 ms.",
-          "Reduced network and server usage by up to 80% across several features.",
-          "Applied MVVM-C, SOLID principles, concurrency, and testing practices while evolving existing production code.",
-        ],
-        technologies: ["MVVM-C", "SOLID", "Concurrency", "Unit Testing"],
-        visual: {
-          type: "metrics",
-          items: [
-            { value: "~10%", label: "Smaller codebase" },
-            { value: "~800 ms", label: "Launch-time improvement" },
-            { value: "Up to 80%", label: "Lower network/server usage" },
-          ],
-        },
-        appStoreUrl: "",
-        githubUrl: "",
-        websiteUrl: "",
-      },
-      {
-        name: "AI-Assisted Engineering",
-        type: "Developer Productivity",
-        organization: "AI Workflows",
-        timeframe: "",
-        description:
-          "Building a multi-model AI-assisted development workflow to improve engineering speed, capability, and cost efficiency.",
-        contribution: [
-          "Designed and integrated a multi-model development workflow using Claude, Opus, and Codex.",
-          "Used different models for different engineering tasks based on capability, context, and cost.",
-          "Reduced AI operating costs by up to 80% through more efficient model usage and workflow design.",
-          "Extended the workflow with tools such as Cursor and Gemini while exploring MCP and agentic development systems.",
-        ],
-        technologies: [
-          "Claude",
-          "Codex",
-          "Cursor",
-          "Gemini",
-          "MCP",
-          "Agentic Workflows",
-        ],
-        visual: {
-          type: "workflow",
-          steps: ["Claude", "Opus", "Codex"],
-          metric: {
-            value: "Up to 80%",
-            label: "Lower AI cost",
-          },
-        },
-        appStoreUrl: "",
-        githubUrl: "",
-        websiteUrl: "",
-      },
-    ],
+      "Production applications, engineering improvements, and AI-assisted development from my work at Innovitics.",
+    productionAppsIntro:
+      "Production applications I develop and maintain at Innovitics.",
+    productionApps,
+    engineeringWork: [architectureWork, aiWork],
     experience: [
       {
         role: "iOS Developer",
@@ -429,10 +353,10 @@ export const profiles: Record<RoleId, Profile> = {
         period: "Dec 2024 — Present",
         type: "Professional",
         highlights: [
-          "Design and run multi-model AI-assisted workflows that improve delivery speed and cost efficiency.",
-          "Own feature delivery and maintenance for customer-facing production applications.",
-          "Drive architecture and performance improvements across existing codebases.",
-          "Partner with Product, Design, Android, Web, and QA through development and release cycles.",
+          "Develop and maintain 3+ production applications.",
+          "Improved architecture and performance across production codebases.",
+          "Reduced network/server usage by up to 80%.",
+          "Designed and integrated a multi-model AI-assisted engineering workflow.",
         ],
       },
       {
@@ -442,10 +366,9 @@ export const profiles: Record<RoleId, Profile> = {
         period: "Nov 2024 — Present",
         type: "Community",
         highlights: [
-          "Collaborated with the community founders in expanding local chapters across 5+ cities, growing the community to 500+ unique active members.",
-          "Contributed to 50+ workshops, meetups, and mentoring sessions, supporting kids, students, and professionals across all experience levels.",
-          "Worked directly with social media outreach, helping community initiatives reach 250k+ online views.",
-          "Maintained a safe and respectful community environment where members felt comfortable sharing experiences and growing together.",
+          "Helped grow the community to 500+ active members across 5+ cities.",
+          "Contributed to 50+ workshops, meetups, and mentoring sessions.",
+          "Supported initiatives reaching 250k+ online views.",
         ],
       },
       {
@@ -455,46 +378,22 @@ export const profiles: Record<RoleId, Profile> = {
         period: "Nov 2019 — Apr 2022",
         type: "Military service",
         highlights: [
-          "Led a unit of ~40 personnel, ensuring performance under high-pressure conditions.",
-          "Planned and executed missions with strict timelines, improving execution efficiency and minimizing risk.",
-          "Enforced standards that resulted in consistent team reliability and performance.",
-          "Coordinated cross-functional activities across logistics and operations.",
-          "Mentored and trained team members, improving overall unit capability.",
+          "Led approximately 40 personnel under high-pressure conditions.",
+          "Coordinated operations, logistics, timelines, and team execution.",
+          "Mentored and trained team members.",
         ],
       },
     ],
     skills: [
       {
-        category: "Programming Languages",
-        items: ["Swift", "Objective-C", "JavaScript", "TypeScript"],
-      },
-      {
-        category: "Mobile Development",
-        items: ["SwiftUI", "UIKit", "Combine", "Concurrency", "Flutter"],
-      },
-      {
-        category: "Software Engineering",
-        items: [
-          "MVVM-C",
-          "VIPER",
-          "SOLID",
-          "Performance Optimization",
-          "Unit Testing",
-          "UI Testing",
-          "Open Source",
-          "Third-Party Libraries",
-        ],
-      },
-      {
         category: "AI & Developer Productivity",
         items: [
           "Claude",
-          "Cursor",
           "Codex",
+          "Cursor",
           "Gemini",
           "AI-Assisted Development",
           "Prompt Engineering",
-          "LLM Integration",
         ],
       },
       {
@@ -502,20 +401,27 @@ export const profiles: Record<RoleId, Profile> = {
         items: ["MCP", "Agentic Workflows"],
       },
       {
-        category: "Backend & Platform",
-        items: ["Node.js", "PostgreSQL", "Docker", "System Design"],
+        category: "Languages & Mobile",
+        items: ["Swift", "Objective-C", "SwiftUI", "UIKit", "Combine"],
       },
       {
-        category: "Tools & Practices",
-        items: ["Git", "CI/CD", "Jira", "Agile", "Scrum"],
+        category: "Engineering",
+        items: [
+          "MVVM-C",
+          "VIPER",
+          "SOLID",
+          "Concurrency",
+          "Unit Testing",
+          "UI Testing",
+          "Git",
+          "CI/CD",
+        ],
       },
     ],
     about: {
       paragraphs: [
-        "I'm Shady — an AI Product Engineer and AI-assisted software engineer with 2.5+ years building production software and AI-powered features. I design scalable architectures, optimize performance, integrate AI workflows, and deliver customer-facing products.",
-        "At Innovitics I designed a multi-model AI-assisted engineering workflow — Claude, Opus, and Codex — that reduced costs by up to ~80%, while refactoring a legacy codebase into a modular architecture (~10% smaller), cutting launch time by ~800 ms, and lowering network and server usage by up to ~80%.",
-        "I'm passionate about AI-native products, modern developer tools, and end-to-end software systems built with AI-assisted development.",
-        "Outside of work I'm a community manager at Mashrou' siin (500+ active members across 5+ cities). Before software, I served three years as a first lieutenant in the Egyptian Armed Forces, leading a unit of ~40 personnel.",
+        "I'm Shady — an AI Product Engineer focused on production software and AI-assisted development workflows. I care about architecture, performance, and shipping real products.",
+        "Outside of work I help run Mashrou' siin, a tech community across Egypt. Before software, I served three years as a first lieutenant in the Egyptian Armed Forces, leading a unit of ~40 personnel.",
       ],
       facts: [
         { label: "Location", value: "Egypt" },
@@ -523,7 +429,6 @@ export const profiles: Record<RoleId, Profile> = {
           label: "Education",
           value: "BSc Computer Science, Kafr El-Shiekh University (2015 — 2019)",
         },
-        { label: "Graduation project", value: "E-commerce platform — graded A+" },
         {
           label: "Service",
           value: "First Lieutenant, Egyptian Armed Forces (2019 — 2022)",
@@ -532,9 +437,9 @@ export const profiles: Record<RoleId, Profile> = {
       ],
     },
     contact: {
-      heading: "Let's build something.",
+      heading: "Let's talk.",
       blurb:
-        "Happy to talk about AI-native products, developer tools, or the next system worth shipping. Fastest way to reach me:",
+        "Open to discussing AI-assisted development, production software, and product engineering opportunities.",
     },
   },
 };

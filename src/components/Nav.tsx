@@ -3,10 +3,10 @@ import { site } from "../data/portfolio";
 import { useRole } from "../context/RoleContext";
 import { asset } from "../lib/asset";
 import { RoleSwitcher } from "./RoleSwitcher";
-import { ArrowDown } from "./icons";
+import { ArrowDown, ArrowUpRight } from "./icons";
 
 const links = [
-  { label: "Work", href: "#work" },
+  { label: "Engineering", href: "#engineering" },
   { label: "Experience", href: "#experience" },
   { label: "Skills", href: "#skills" },
   { label: "About", href: "#about" },
@@ -53,6 +53,17 @@ export function Nav() {
               </a>
             ))}
             <RoleSwitcher compact />
+            {site.githubUrl !== "" && (
+              <a
+                href={site.githubUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="group inline-flex items-center gap-1 text-sm text-muted transition-colors hover:text-text"
+              >
+                GitHub
+                <ArrowUpRight className="h-3 w-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </a>
+            )}
             <a
               href={asset(profile.cvFile)}
               download={profile.cvFile}
@@ -115,8 +126,22 @@ export function Nav() {
               ))}
             </div>
           </div>
-          <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted">
-            {profile.role} · {site.location}
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+            {site.githubUrl !== "" && (
+              <a
+                href={site.githubUrl}
+                target="_blank"
+                rel="noreferrer"
+                onClick={closeMenu}
+                className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.22em] text-muted"
+              >
+                GitHub
+                <ArrowUpRight className="h-3 w-3" />
+              </a>
+            )}
+            <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted">
+              {profile.role} · {site.location}
+            </span>
           </div>
         </div>
       </div>
