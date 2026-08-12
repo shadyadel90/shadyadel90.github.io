@@ -1,34 +1,24 @@
 # Shady Adel — Portfolio
 
-Live site: **https://shadyadel90.github.io/**
+Live: **https://shadyadel90.github.io/**
 
-One repo. Two profiles (iOS / AI Product Engineer).
+## Update content
 
-## Updating
+1. Edit `src/data/portfolio.ts` (or replace CV PDFs in `public/`)
+2. Rebuild the published site:
+   ```bash
+   npm run build:pages
+   ```
+3. Push:
+   ```bash
+   git add -A && git commit -m "Update portfolio" && git push
+   ```
 
-```
-src/data/portfolio.ts
-public/Shady-Adel-iOS-CV.pdf
-public/Shady-Adel-AI-Product-Engineer-CV.pdf
-public/screenshots/
-```
+## Pages setup
 
-Then:
+**Settings → Pages → Deploy from a branch → `main` / `/(root)`**
 
-```bash
-npm run build:pages
-git add -A && git commit -m "Update portfolio" && git push
-```
-
-## GitHub Pages setup (do this once)
-
-1. Open **Settings → Pages**
-2. **Source:** Deploy from a branch
-3. **Branch:** `main`
-4. **Folder:** `/docs`  ← not `/(root)`
-5. Save
-
-## Local
+## Local preview of source
 
 ```bash
 npm install
