@@ -46,6 +46,8 @@ body {
 
 .font-display {
   font-family: var(--font-display);
+  /* Syne descenders (g, y, p) clip under tight line-height / transforms. */
+  overflow: visible;
 }
 
 .reveal {
