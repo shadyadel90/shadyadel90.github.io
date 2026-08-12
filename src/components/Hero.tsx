@@ -18,7 +18,7 @@ export function Hero() {
           <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted">
             {profile.role} · {site.location}
           </p>
-          <RoleSwitcher />
+          <RoleSwitcher className="self-start" />
         </div>
       </Reveal>
 
