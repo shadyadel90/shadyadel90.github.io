@@ -29,7 +29,7 @@ export function Hero() {
       </Reveal>
 
       <Reveal delay={140}>
-        <p className="font-display mt-5 max-w-3xl overflow-visible py-1 text-[clamp(1.35rem,3.4vw,2.35rem)] leading-normal font-medium tracking-tight text-text/90">
+        <p className="font-display mt-5 max-w-3xl overflow-visible py-2 text-[clamp(1.35rem,3.4vw,2.35rem)] leading-[1.35] font-medium tracking-tight text-text/90">
           {profile.hero.headline}
         </p>
       </Reveal>

@@ -4,9 +4,9 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc --noEmit && vite build",
-    "build:pages": "VITE_BASE=/ npm run build && rm -rf docs && cp -R dist docs && touch docs/.nojekyll && cp dist/index.html ./index.html && rm -rf assets && cp -R dist/assets ./assets && cp dist/favicon.svg ./favicon.svg && cp dist/Shady-Adel-iOS-CV.pdf ./Shady-Adel-iOS-CV.pdf && cp dist/Shady-Adel-AI-Product-Engineer-CV.pdf ./Shady-Adel-AI-Product-Engineer-CV.pdf && mkdir -p screenshots && cp -R dist/screenshots/. ./screenshots/ && touch .nojekyll",
+    "dev": "cp index.source.html index.html && vite",
+    "build": "cp index.source.html index.html && tsc --noEmit && vite build",
+    "build:pages": "npm run build && rm -rf docs assets && cp -R dist docs && touch docs/.nojekyll && cp dist/index.html ./index.html && cp -R dist/assets ./assets && cp dist/favicon.svg ./favicon.svg && cp dist/Shady-Adel-iOS-CV.pdf ./Shady-Adel-iOS-CV.pdf && cp dist/Shady-Adel-AI-Product-Engineer-CV.pdf ./Shady-Adel-AI-Product-Engineer-CV.pdf && mkdir -p screenshots && cp -R dist/screenshots/. ./screenshots/ && touch .nojekyll",
     "preview": "vite preview"
   },
   "dependencies": {
