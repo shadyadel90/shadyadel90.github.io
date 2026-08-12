@@ -1,6 +1,7 @@
 import { useRole } from "../context/RoleContext";
 import { Reveal } from "./Reveal";
 import { Section } from "./Section";
+import { ArrowUpRight } from "./icons";
 
 export function Experience() {
   const { profile } = useRole();
@@ -25,7 +26,22 @@ export function Experience() {
               <div>
                 <h3 className="font-display text-xl font-semibold tracking-tight md:text-2xl">
                   {entry.role}
-                  <span className="text-muted"> · {entry.organization}</span>
+                  <span className="text-muted">
+                    {" · "}
+                    {entry.organizationUrl !== "" ? (
+                      <a
+                        href={entry.organizationUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="group inline-flex items-center gap-1 transition-colors hover:text-text"
+                      >
+                        {entry.organization}
+                        <ArrowUpRight className="h-3.5 w-3.5 opacity-60 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:opacity-100" />
+                      </a>
+                    ) : (
+                      entry.organization
+                    )}
+                  </span>
                 </h3>
                 {entry.location !== "" && (
                   <p className="mt-1.5 font-mono text-[11px] uppercase tracking-[0.18em] text-muted">

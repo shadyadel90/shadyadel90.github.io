@@ -6,7 +6,7 @@ export function About() {
   const { profile } = useRole();
 
   return (
-    <Section id="about" index="04" label="About" title="Beyond the code">
+    <Section id="about" index="04" label="About" title="Beyond Engineering">
       <div className="grid gap-14 md:grid-cols-[1.2fr_0.8fr] md:gap-20">
         <Reveal>
           <div className="flex flex-col gap-6">

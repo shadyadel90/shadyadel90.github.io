@@ -51,6 +51,8 @@ export interface EngineeringWork {
   type: string;
   /** Organization / context line. Leave "" to hide. */
   organization: string;
+  /** External org URL. Leave "" for plain text. */
+  organizationUrl: string;
   /** e.g. "Dec 2024 — Present". Leave "" to hide. */
   timeframe: string;
   /** Short framing sentence. Leave "" to hide. */
@@ -69,6 +71,8 @@ export interface EngineeringWork {
 export interface ExperienceEntry {
   role: string;
   organization: string;
+  /** External org URL. Leave "" for plain text. */
+  organizationUrl: string;
   location: string;
   period: string;
   /** Small tag: "Professional" | "Community" | "Military service" — free text. */
@@ -124,7 +128,7 @@ export const site = {
   phone: "(+20) 114 172 9045",
   phoneHref: "tel:+201141729045",
   linkedinUrl: "https://www.linkedin.com/in/shadyadel9",
-  githubUrl: "https://github.com/shadyadel90",
+  githubUrl: "", // temporarily hidden — restore: https://github.com/shadyadel90
 };
 
 /** Tabs shown in the role switcher — order = left → right. */
@@ -138,8 +142,8 @@ export const defaultRole: RoleId = "ios";
 const productionApps: ProductionApp[] = [
   {
     name: "Mahmoud ElFar Market",
-    label: "Production iOS App",
-    note: "Built and maintained at Innovitics.",
+    label: "",
+    note: "",
     icon: "screenshots/apps/mahmoud-elfar-icon.webp",
     screenshots: [
       "screenshots/apps/mahmoud-elfar-1.webp",
@@ -151,8 +155,8 @@ const productionApps: ProductionApp[] = [
   },
   {
     name: "TAQA Volt",
-    label: "Production iOS App",
-    note: "Built and maintained at Innovitics.",
+    label: "",
+    note: "",
     icon: "screenshots/apps/taqa-volt-icon.webp",
     screenshots: [
       "screenshots/apps/taqa-volt-1.webp",
@@ -167,6 +171,7 @@ const architectureWork: EngineeringWork = {
   name: "Architecture & Performance",
   type: "",
   organization: "Innovitics",
+  organizationUrl: "https://www.innovitics.com/en",
   timeframe: "",
   description:
     "Improving architecture, startup performance, and network efficiency in production codebases.",
@@ -191,6 +196,7 @@ const aiWork: EngineeringWork = {
   name: "AI-Assisted Engineering",
   type: "",
   organization: "",
+  organizationUrl: "",
   timeframe: "",
   description:
     "Designing a multi-model AI development workflow around modern engineering tools.",
@@ -219,6 +225,27 @@ const aiWork: EngineeringWork = {
   websiteUrl: "",
 };
 
+const beyondEngineering = {
+  paragraphs: [
+    "My path into software wasn't linear. Before writing production code, I spent three years as a military officer — an experience that taught me how to lead, adapt, and take responsibility when the answer isn't obvious.",
+    "I care a lot about people and communities too. Through Mashrou' Siin and Rafeeq, I work on bringing people together, sharing experience, and helping others move forward in their careers.",
+    "I'm curious by nature. iOS is where I work today, but I'm constantly exploring AI, products, backend systems, and whatever helps me understand how better software gets built.",
+    "For me, engineering is part of a bigger goal: becoming someone who can take difficult problems, understand them deeply, and make things better.",
+  ],
+  facts: [
+    { label: "Location", value: "Egypt" },
+    {
+      label: "Education",
+      value: "BSc Computer Science, Kafr El-Shiekh University (2015 — 2019)",
+    },
+    {
+      label: "Service",
+      value: "First Lieutenant, Egyptian Armed Forces (2019 — 2022)",
+    },
+    { label: "Community", value: "Community Manager, Mashrou' siin" },
+  ],
+};
+
 /* -------------------------------------------------------------- profiles -- */
 
 export const profiles: Record<RoleId, Profile> = {
@@ -230,7 +257,7 @@ export const profiles: Record<RoleId, Profile> = {
     hero: {
       name: "Shady Adel",
       headline: "iOS Software Engineer",
-      sub: "3+ years shipping and maintaining production iOS apps with Swift, SwiftUI, and UIKit — focused on architecture, performance, and AI-assisted engineering.",
+      sub: "2.5+ years shipping and maintaining production iOS apps with Swift, SwiftUI, and UIKit — focused on architecture, performance, and AI-assisted engineering.",
     },
     engineeringIntro:
       "Production applications, engineering improvements, and AI-assisted development from my work at Innovitics.",
@@ -242,6 +269,7 @@ export const profiles: Record<RoleId, Profile> = {
       {
         role: "iOS Developer",
         organization: "Innovitics",
+        organizationUrl: "https://www.innovitics.com/en",
         location: "Cairo, Egypt",
         period: "Dec 2024 — Present",
         type: "Professional",
@@ -254,7 +282,8 @@ export const profiles: Record<RoleId, Profile> = {
       },
       {
         role: "Community Manager",
-        organization: "Mashrou' siin — Tech Community",
+        organization: "Mashrou' Siin",
+        organizationUrl: "https://m-siin.vercel.app/",
         location: "Egypt",
         period: "Nov 2024 — Present",
         type: "Community",
@@ -267,6 +296,7 @@ export const profiles: Record<RoleId, Profile> = {
       {
         role: "First Lieutenant",
         organization: "Egyptian Armed Forces",
+        organizationUrl: "",
         location: "Sidi Barani, Egypt",
         period: "Nov 2019 — Apr 2022",
         type: "Military service",
@@ -304,24 +334,7 @@ export const profiles: Record<RoleId, Profile> = {
         ],
       },
     ],
-    about: {
-      paragraphs: [
-        "I'm Shady — a software engineer specializing in iOS. I own production apps through architecture, performance, shipping, and ongoing maintenance.",
-        "Outside of work I help run Mashrou' siin, a tech community across Egypt. Before software, I served three years as a first lieutenant in the Egyptian Armed Forces, leading a unit of ~40 personnel.",
-      ],
-      facts: [
-        { label: "Location", value: "Egypt" },
-        {
-          label: "Education",
-          value: "BSc Computer Science, Kafr El-Shiekh University (2015 — 2019)",
-        },
-        {
-          label: "Service",
-          value: "First Lieutenant, Egyptian Armed Forces (2019 — 2022)",
-        },
-        { label: "Community", value: "Community Manager, Mashrou' siin" },
-      ],
-    },
+    about: beyondEngineering,
     contact: {
       heading: "Let's talk.",
       blurb:
@@ -337,7 +350,7 @@ export const profiles: Record<RoleId, Profile> = {
     hero: {
       name: "Shady Adel",
       headline: "AI Product Engineer",
-      sub: "3+ years building production software and AI-assisted engineering workflows — focused on architecture, performance, and shipping customer-facing products.",
+      sub: "2.5+ years building production software and AI-assisted engineering workflows — focused on architecture, performance, and shipping customer-facing products.",
     },
     engineeringIntro:
       "Production applications, engineering improvements, and AI-assisted development from my work at Innovitics.",
@@ -349,6 +362,7 @@ export const profiles: Record<RoleId, Profile> = {
       {
         role: "iOS Developer",
         organization: "Innovitics",
+        organizationUrl: "https://www.innovitics.com/en",
         location: "Cairo, Egypt",
         period: "Dec 2024 — Present",
         type: "Professional",
@@ -361,7 +375,8 @@ export const profiles: Record<RoleId, Profile> = {
       },
       {
         role: "Community Manager",
-        organization: "Mashrou' siin — Tech Community",
+        organization: "Mashrou' Siin",
+        organizationUrl: "https://m-siin.vercel.app/",
         location: "Egypt",
         period: "Nov 2024 — Present",
         type: "Community",
@@ -374,6 +389,7 @@ export const profiles: Record<RoleId, Profile> = {
       {
         role: "First Lieutenant",
         organization: "Egyptian Armed Forces",
+        organizationUrl: "",
         location: "Sidi Barani, Egypt",
         period: "Nov 2019 — Apr 2022",
         type: "Military service",
@@ -418,24 +434,7 @@ export const profiles: Record<RoleId, Profile> = {
         ],
       },
     ],
-    about: {
-      paragraphs: [
-        "I'm Shady — an AI Product Engineer focused on production software and AI-assisted development workflows. I care about architecture, performance, and shipping real products.",
-        "Outside of work I help run Mashrou' siin, a tech community across Egypt. Before software, I served three years as a first lieutenant in the Egyptian Armed Forces, leading a unit of ~40 personnel.",
-      ],
-      facts: [
-        { label: "Location", value: "Egypt" },
-        {
-          label: "Education",
-          value: "BSc Computer Science, Kafr El-Shiekh University (2015 — 2019)",
-        },
-        {
-          label: "Service",
-          value: "First Lieutenant, Egyptian Armed Forces (2019 — 2022)",
-        },
-        { label: "Community", value: "Community Manager, Mashrou' siin" },
-      ],
-    },
+    about: beyondEngineering,
     contact: {
       heading: "Let's talk.",
       blurb:

@@ -159,17 +159,6 @@ function ProductionAppCard({ app }: { app: ProductionApp }) {
           {app.note !== "" && (
             <p className="mt-1.5 text-sm text-muted">{app.note}</p>
           )}
-          {app.appStoreUrl !== "" && (
-            <a
-              href={app.appStoreUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="group mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-text underline decoration-line underline-offset-8 transition-colors hover:text-accent hover:decoration-accent"
-            >
-              View on App Store
-              <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-            </a>
-          )}
         </div>
       </div>
 
@@ -184,6 +173,20 @@ function ProductionAppCard({ app }: { app: ProductionApp }) {
               className="h-[280px] w-auto shrink-0 snap-start rounded-xl border border-line bg-surface object-cover sm:h-[320px] md:h-[360px]"
             />
           ))}
+        </div>
+      )}
+
+      {app.appStoreUrl !== "" && (
+        <div className="border-t border-line px-5 py-4 md:px-6">
+          <a
+            href={app.appStoreUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="group inline-flex items-center gap-1.5 text-sm font-medium text-text underline decoration-line underline-offset-8 transition-colors hover:text-accent hover:decoration-accent"
+          >
+            View on App Store
+            <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+          </a>
         </div>
       )}
     </article>
@@ -225,10 +228,26 @@ function ProductionAppsBlock({
   );
 }
 
+function OrgLink({ name, url }: { name: string; url: string }) {
+  if (url === "") return <>{name}</>;
+
+  return (
+    <a
+      href={url}
+      target="_blank"
+      rel="noreferrer"
+      className="group inline-flex items-center gap-1 transition-colors hover:text-text"
+    >
+      {name}
+      <ArrowUpRight className="h-3 w-3 opacity-60 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:opacity-100" />
+    </a>
+  );
+}
+
 function WorkCard({ work }: { work: EngineeringWork }) {
   const showVisual = hasVisual(work.visual);
   const isMetrics = work.visual?.type === "metrics";
-  const meta = [work.organization, work.timeframe].filter(Boolean).join(" · ");
+  const hasMeta = work.organization !== "" || work.timeframe !== "";
 
   return (
     <article className="border-t border-line py-16 md:py-20">
@@ -245,9 +264,13 @@ function WorkCard({ work }: { work: EngineeringWork }) {
           {work.name}
         </h3>
 
-        {meta !== "" && (
+        {hasMeta && (
           <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.18em] text-muted">
-            {meta}
+            {work.organization !== "" && (
+              <OrgLink name={work.organization} url={work.organizationUrl} />
+            )}
+            {work.organization !== "" && work.timeframe !== "" && " · "}
+            {work.timeframe}
           </p>
         )}
 
