@@ -296,7 +296,7 @@ export const profiles: Record<RoleId, Profile> = {
       {
         role: "First Lieutenant",
         organization: "Egyptian Armed Forces",
-        organizationUrl: "",
+        organizationUrl: "https://www.mod.gov.eg/ModWebSite/Default.aspx",
         location: "Sidi Barani, Egypt",
         period: "Nov 2019 — Apr 2022",
         type: "Military service",
@@ -389,7 +389,7 @@ export const profiles: Record<RoleId, Profile> = {
       {
         role: "First Lieutenant",
         organization: "Egyptian Armed Forces",
-        organizationUrl: "",
+        organizationUrl: "https://www.mod.gov.eg/ModWebSite/Default.aspx",
         location: "Sidi Barani, Egypt",
         period: "Nov 2019 — Apr 2022",
         type: "Military service",
