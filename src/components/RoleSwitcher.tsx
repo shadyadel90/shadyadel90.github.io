@@ -25,8 +25,8 @@ export function RoleSwitcher({ compact = false, className = "" }: RoleSwitcherPr
             role="tab"
             aria-selected={isActive}
             onClick={() => setRoleId(option.id)}
-            className={`rounded-[5px] font-medium transition-colors ${
-              compact ? "px-2.5 py-1 text-xs" : "px-3.5 py-1.5 text-sm"
+            className={`rounded-[5px] overflow-visible leading-normal font-medium transition-colors ${
+              compact ? "px-2.5 py-1.5 text-xs" : "px-3.5 py-2 text-sm"
             } ${isActive ? "bg-text text-bg" : "text-muted hover:text-text"}`}
           >
             {option.label}

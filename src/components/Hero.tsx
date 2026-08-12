@@ -23,13 +23,13 @@ export function Hero() {
       </Reveal>
 
       <Reveal delay={70}>
-        <h1 className="font-display max-w-5xl text-[clamp(3.2rem,11vw,7.5rem)] leading-[1.05] font-semibold tracking-tight">
+        <h1 className="font-display max-w-5xl overflow-visible pb-[0.12em] text-[clamp(3.2rem,11vw,7.5rem)] leading-[1.1] font-semibold tracking-tight">
           {profile.hero.name}
         </h1>
       </Reveal>
 
       <Reveal delay={140}>
-        <p className="font-display mt-5 max-w-3xl overflow-visible py-2 text-[clamp(1.35rem,3.4vw,2.35rem)] leading-[1.35] font-medium tracking-tight text-text/90">
+        <p className="font-display mt-5 max-w-3xl overflow-visible py-2 text-[clamp(1.35rem,3.4vw,2.35rem)] leading-[1.4] font-medium tracking-tight text-text/90">
           {profile.hero.headline}
         </p>
       </Reveal>
