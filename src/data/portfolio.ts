@@ -128,7 +128,7 @@ export const site = {
   phone: "(+20) 114 172 9045",
   phoneHref: "tel:+201141729045",
   linkedinUrl: "https://www.linkedin.com/in/shadyadel9",
-  githubUrl: "", // temporarily hidden — restore: https://github.com/shadyadel90
+  githubUrl: "https://github.com/shadyadel90",
 };
 
 /** Tabs shown in the role switcher — order = left → right. */
