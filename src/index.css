@@ -46,22 +46,22 @@ body {
 
 .font-display {
   font-family: var(--font-display);
-  /* Syne descenders (g, y, p) clip under tight line-height / transforms. */
   overflow: visible;
 }
 
 .reveal {
+  overflow: visible;
   opacity: 0;
   transform: translateY(14px);
   transition:
     opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
     transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
-  will-change: opacity, transform;
 }
 
 .reveal.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  /* `translateY(0)` still creates a containing block that clips Syne descenders. */
+  transform: none;
 }
 
 .strip {
