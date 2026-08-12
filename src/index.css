@@ -9,7 +9,7 @@
   --color-accent: #7ec8e3;
 
   --font-sans: "DM Sans Variable", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Manrope Variable", ui-sans-serif, system-ui, sans-serif;
   --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
 }
 
@@ -47,12 +47,18 @@ body {
 .font-display {
   font-family: var(--font-display);
   overflow: visible;
+  /*
+    Antialiased smoothing on dark backgrounds thins strokes and can make
+    descenders (g, y, p) look flat-cut. Prefer subpixel for display sizes.
+  */
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
 }
 
 .reveal {
   overflow: visible;
   opacity: 0;
-  /* Opacity-only: any transform creates a containing block that clips Syne descenders. */
+  /* Opacity-only: transforms can create a containing block that clips descenders. */
   transition: opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 

@@ -6,7 +6,7 @@ import { RoleSwitcher } from "./RoleSwitcher";
 import { ArrowDown } from "./icons";
 
 const links = [
-  { label: "Projects", href: "#projects" },
+  { label: "Work", href: "#work" },
   { label: "Experience", href: "#experience" },
   { label: "Skills", href: "#skills" },
   { label: "About", href: "#about" },
